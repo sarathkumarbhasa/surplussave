@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the SurplusSave platform (donor or volunteer)",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["donor", "volunteer"] },
+        "photoURL": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "idPhotoUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "name", "role", "createdAt"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "A food surplus post created by a donor",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "donorId": { "type": "string" },
+        "donorName": { "type": "string" },
+        "donorPhone": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "location": { "type": "string" },
+        "time": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "claimed", "completed"] },
+        "impact": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "donorId", "donorName", "title", "location", "time", "status", "createdAt"]
+    },
+    "Pickup": {
+      "title": "Pickup",
+      "description": "A pickup claimed by a volunteer",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "postId": { "type": "string" },
+        "volunteerId": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "completed"] },
+        "claimedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "postId", "volunteerId", "status", "claimedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profiles"
+    },
+    "/posts/{postId}": {
+      "schema": { "$ref": "#/entities/Post" },
+      "description": "Stores food surplus posts"
+    },
+    "/pickups/{pickupId}": {
+      "schema": { "$ref": "#/entities/Pickup" },
+      "description": "Stores claimed pickups"
+    }
+  }
+}

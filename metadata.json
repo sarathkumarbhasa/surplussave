@@ -1,0 +1,8 @@
+{
+  "name": "SurplusSave",
+  "description": "A food rescue application connecting donors with volunteers to reduce food waste.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
